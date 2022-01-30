@@ -101,6 +101,7 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
     renderQuickReplySend?(): React.ReactNode;
     scrollToBottomComponent?(): React.ReactNode;
     shouldUpdateMessage?(props: Message<TMessage>['props'], nextProps: Message<TMessage>['props']): boolean;
+    getMessagesContainerHeight?: (height: number) => void;
 }
 export interface GiftedChatState<TMessage extends IMessage = IMessage> {
     isInitialized: boolean;

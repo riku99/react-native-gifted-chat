@@ -204,7 +204,7 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
     props: Message<TMessage>['props'],
     nextProps: Message<TMessage>['props'],
   ): boolean
-  getMessagesContainerHeight: (height: number) => void
+  getMessagesContainerHeight?: (height: number) => void
 }
 
 export interface GiftedChatState<TMessage extends IMessage = IMessage> {
@@ -603,6 +603,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       this.setState({
         messagesContainerHeight: newMessagesContainerHeight,
       })
+
+      if (this.props.getMessagesContainerHeight) {
+        this.props.getMessagesContainerHeight(newMessagesContainerHeight)
+      }
     }
   }
 
@@ -615,6 +619,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       this.setState({
         messagesContainerHeight: newMessagesContainerHeight,
       })
+
+      if (this.props.getMessagesContainerHeight) {
+        this.props.getMessagesContainerHeight(newMessagesContainerHeight)
+      }
     }
   }
 
@@ -719,6 +727,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       composerHeight: newComposerHeight,
       messagesContainerHeight: newMessagesContainerHeight,
     })
+
+    if (this.props.getMessagesContainerHeight) {
+      this.props.getMessagesContainerHeight(newMessagesContainerHeight)
+    }
   }
 
   focusTextInput() {
