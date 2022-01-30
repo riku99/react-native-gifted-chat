@@ -204,6 +204,7 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
     props: Message<TMessage>['props'],
     nextProps: Message<TMessage>['props'],
   ): boolean
+  getMessagesContainerHeight: (height: number) => void
 }
 
 export interface GiftedChatState<TMessage extends IMessage = IMessage> {
@@ -738,6 +739,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       composerHeight: newComposerHeight,
       messagesContainerHeight: newMessagesContainerHeight,
     })
+
+    if (this.props.getMessagesContainerHeight) {
+      this.props.getMessagesContainerHeight(newMessagesContainerHeight)
+    }
   }
 
   onInputTextChanged = (text: string) => {
@@ -777,6 +782,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       composerHeight: newComposerHeight,
       messagesContainerHeight: newMessagesContainerHeight,
     })
+
+    if (this.props.getMessagesContainerHeight) {
+      this.props.getMessagesContainerHeight(newMessagesContainerHeight)
+    }
   }
 
   onMainViewLayout = (e: any) => {
@@ -793,6 +802,14 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
             ? this.getMessagesContainerHeightWithKeyboard()
             : this.getBasicMessagesContainerHeight(),
       })
+
+      if (this.props.getMessagesContainerHeight) {
+        this.props.getMessagesContainerHeight(
+          this._keyboardHeight > 0
+            ? this.getMessagesContainerHeightWithKeyboard()
+            : this.getBasicMessagesContainerHeight(),
+        )
+      }
     }
     if (this.getIsFirstLayout() === true) {
       this.setIsFirstLayout(false)
